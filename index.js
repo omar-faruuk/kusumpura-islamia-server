@@ -27,6 +27,7 @@ client.connect(err => {
   const bannerCollection = client.db("kusumpura-islamia").collection("banner");
   const adminCollection = client.db("kusumpura-islamia").collection("admin");
   const projectCollection = client.db("kusumpura-islamia").collection("project");
+  const eventCollection = client.db("kusumpura-islamia").collection("events");
 
   app.post('/addTeacher', async (req, res) => {
     const teacherData = req.body;
@@ -378,6 +379,34 @@ client.connect(err => {
     res.status(200).send(result.acknowledged)
 
   })
+
+//add event
+  app.post('/addEvent', async (req, res) => {
+    const result = await eventCollection.insertOne(req.body);
+    res.status(200).send(result.acknowledged)
+    console.log(result.acknowledged);
+  })
+
+
+  //get events
+  app.get('/events', async (req, res) => {
+    try {
+      const photos = eventCollection.find({});
+      const result = await photos.toArray()
+      res.status(200).send(result)
+    } catch (error) {
+      res.status(500).send(error)
+    }
+  })
+
+
+  // delete events
+  app.delete('/deleteEvent/:id', async (req, res) => {
+    const result = await eventCollection.findOneAndDelete({ _id: ObjectId(req.params.id) })
+    res.status(200).send(result.acknowledged)
+
+  })
+
 
 
 
