@@ -28,6 +28,7 @@ client.connect(err => {
   const adminCollection = client.db("kusumpura-islamia").collection("admin");
   const projectCollection = client.db("kusumpura-islamia").collection("project");
   const eventCollection = client.db("kusumpura-islamia").collection("events");
+  const talkCollection = client.db("kusumpura-islamia").collection("talk");
 
   app.post('/addTeacher', async (req, res) => {
     const teacherData = req.body;
@@ -406,6 +407,55 @@ client.connect(err => {
     res.status(200).send(result.acknowledged)
 
   })
+
+
+  //post talk
+  app.post('/addTalk', async (req, res) => {
+
+    console.log(req.body);
+    try {
+      const result = await talkCollection.insertOne(req.body);
+      res.status(200).send(result.acknowledged)
+    } catch (error) {
+      res.status(500).send(error)
+      console.log(error);
+    }
+
+  })
+
+  // get talk
+  app.get('/talks', async (req, res) => {
+    const history = talkCollection.find({})
+    try {
+      const result = await history.toArray()
+      res.status(200).send(result)
+    } catch (error) {
+      res.status(500).send(error)
+    }
+  })
+
+
+  // update project
+  app.patch('/updateTalk/:id', async (req, res) => {
+    try {
+      const result = await talkCollection.updateOne(
+        { _id: ObjectId(req.params.id) },
+        { $set: req.body }
+      )
+      res.status(200).send(result.acknowledged)
+    } catch (error) {
+      res.status(500).send(error)
+      console.log(error);
+    }
+  })
+
+  //delete talk
+  app.delete('/deleteTalk/:id', async (req, res) => {
+    const result = await talkCollection.findOneAndDelete({ _id: ObjectId(req.params.id) })
+    res.status(200).send(result.acknowledged)
+
+  })
+
 
 
 
