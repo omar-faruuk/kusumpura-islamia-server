@@ -2,9 +2,10 @@
   "name": "kusumpura-madrasah-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon app.js",
+    "Devstart":"app.js"
     
   },
   "author": "omar faruq",
