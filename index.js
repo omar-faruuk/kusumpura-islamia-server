@@ -467,8 +467,8 @@ client.connect(err => {
 
 
 
-app.get('/', (req, res) => {
-  res.send('kusumpura islamia dhakil madrasah is commming...')
-})
+// app.get('/', (req, res) => {
+//   res.send('kusumpura islamia dhakil madrasah is commming...')
+// })
 
 app.listen(process.env.PORT || port)
