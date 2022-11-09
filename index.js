@@ -423,7 +423,7 @@ client.connect(err => {
   })
 
   // get talk
-  app.get('/talks', async (req, res) => {
+  app.get('/', async (req, res) => {
     const history = talkCollection.find({})
     try {
       const result = await history.toArray()
