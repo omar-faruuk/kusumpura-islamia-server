@@ -423,7 +423,7 @@ client.connect(err => {
   })
 
   // get talk
-  app.get('/', async (req, res) => {
+  app.get('/talks', async (req, res) => {
     const history = talkCollection.find({})
     try {
       const result = await history.toArray()
@@ -467,8 +467,8 @@ client.connect(err => {
 
 
 
-// app.get('/', (req, res) => {
-//   res.send('kusumpura islamia dhakil madrasah is commming...')
-// })
+app.get('/', (req, res) => {
+  res.send('kusumpura islamia dhakil madrasah is commming...')
+})
 
 app.listen(process.env.PORT || port)
